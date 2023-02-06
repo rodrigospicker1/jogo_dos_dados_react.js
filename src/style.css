@@ -53,11 +53,14 @@ main{
 
 .roll-dice{
     height: 50px;
-    width: 100px;
+    width: 150px;
     border: none; 
     border-radius: 6px;
     background-color: #5935FF;
     cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
 .roll-dice:focus{

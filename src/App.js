@@ -1,5 +1,6 @@
 import Die from "./Die"
 import React from "react"
+import Confetti from 'react-confetti'
 
 export default function App(){
 
@@ -37,22 +38,29 @@ export default function App(){
     }
 
     function rollDice(){
-        setDice(oldDice => oldDice.map(die => {
-            return die.isHeld ?
-            die :
-            generateNewDie()
-        }))
+        if(!tenzies){
+            setDice(oldDice => oldDice.map(die => {
+                return die.isHeld ?
+                die :
+                generateNewDie()
+            }))
+        } else{
+            setTenzies(false)
+            setDice(allNewDice())
+        }
+        
     } 
 
-    function holdDice(id){
+    function holdDice(id, value){
+        console.log("-----------")
         setDice(oldDice => oldDice.map(die => {
             return die.id === id ?
             {...die, isHeld: !die.isHeld} :
             die
-        }))
+        })) 
     }
 
-    const diceElements = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)} />)
+    const diceElements = dice.map(die => (<Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id, die.value)} />))
 
     return(
         <main>
@@ -61,7 +69,7 @@ export default function App(){
              <div className="dice-container" >
                 {diceElements}
              </div>
-             <button className="roll-dice" onClick={rollDice}>Role os dados</button>
+             <button className="roll-dice" onClick={rollDice}>{tenzies ? "Novo jogo" : "Role"}</button>
         </main>
     )
 }
